@@ -1,4 +1,4 @@
-const Video_base = "./video/";
+const Video_base = "./videos/";
 const reels = [
   {
     username: "akash_vibes",
