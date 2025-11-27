@@ -24,7 +24,7 @@ main {
 
   section {
     color: white;
-    height: 85vh;
+    height: 80vh;
     width: 90vw;
     border-radius: 10px;
     margin: auto;
@@ -124,7 +124,13 @@ main {
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            width: 50px;
+
+            h4 {
+              pointer-events: none;
+            }
           }
+
           .love {
             color: #f80268;
           }
@@ -142,6 +148,7 @@ main {
           h6 {
             font-size: 20px;
             font-weight: 500;
+            pointer-events: none;
           }
         }
       }

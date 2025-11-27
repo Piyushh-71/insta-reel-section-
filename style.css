@@ -19,7 +19,7 @@ main {
 }
 main section {
   color: white;
-  height: 85vh;
+  height: 80vh;
   width: 90vw;
   border-radius: 10px;
   margin: auto;
@@ -126,6 +126,10 @@ main section .all-reels .reel .right > div {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  width: 50px;
+}
+main section .all-reels .reel .right > div h4 {
+  pointer-events: none;
 }
 main section .all-reels .reel .right .love {
   color: #f80268;
@@ -146,6 +150,7 @@ main section .all-reels .reel .right .icon:active {
 main section .all-reels .reel .right h6 {
   font-size: 20px;
   font-weight: 500;
+  pointer-events: none;
 }
 @media (min-width: 1024px) {
   main section {
