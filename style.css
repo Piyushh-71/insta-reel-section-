@@ -55,6 +55,8 @@ main section .all-reels .reel video {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
   border-radius: 10px;
 }
 main section .all-reels .reel .bottom {

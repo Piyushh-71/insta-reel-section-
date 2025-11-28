@@ -1,4 +1,5 @@
 const Video_base = "./videos/";
+
 const reels = [
   {
     username: "akash_vibes",
@@ -7,7 +8,7 @@ const reels = [
     commentCount: 340,
     isComment: true,
     caption: "Life hits different when you stop rushing it.",
-    video: "https://www.pexels.com/download/video/3197530/",
+    video: Video_base + "reel1.mp4",
     userProfile: "https://i.pravatar.cc/150?img=12",
     shareCount: 220,
     isShared: true,
