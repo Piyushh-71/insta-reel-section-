@@ -8,6 +8,7 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", "Open Sans",
     "Helvetica Neue", sans-serif;
   height: 100%;
+  background-color: #000000;
   width: 100%;
 }
 main {
@@ -182,10 +183,15 @@ main {
   }
 
   @media (min-width: 1024px) {
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     section {
       height: 800px;
       width: 24vw;
-      margin: 0;
+
       .all-reels {
         .reel {
           .right {
