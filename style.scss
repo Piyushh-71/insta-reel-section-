@@ -108,11 +108,12 @@ main {
               user-select: none;
             }
             button {
-              padding: 6px 10px;
+              padding: 5px 8px;
               border-radius: 50px;
               font-weight: 200;
+              color: #f6f6f6;
               backdrop-filter: blur(20px);
-              border: 0.1px solid white;
+              border: 0.1px solid rgba(255, 255, 255, 0.355);
               background-color: transparent;
               transition: all 0.6s ease;
             }
