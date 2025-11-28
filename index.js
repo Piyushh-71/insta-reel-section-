@@ -2,6 +2,7 @@ const Video_base = "./videos/";
 
 const reels = [
   {
+    ismuted: true,
     username: "akash_vibes",
     likeCount: 12800,
     isLiked: false,
@@ -15,6 +16,7 @@ const reels = [
     isFollowed: false,
   },
   {
+    ismuted: true,
     username: "rhea.codes",
     likeCount: 9400,
     isLiked: true,
@@ -28,6 +30,7 @@ const reels = [
     isFollowed: true,
   },
   {
+    ismuted: true,
     username: "travelwithsid",
     likeCount: 22400,
     isLiked: false,
@@ -41,6 +44,7 @@ const reels = [
     isFollowed: false,
   },
   {
+    ismuted: true,
     username: "neha_fit",
     likeCount: 6400,
     isLiked: true,
@@ -54,6 +58,7 @@ const reels = [
     isFollowed: true,
   },
   {
+    ismuted: true,
     username: "dj_arjun",
     likeCount: 17800,
     isLiked: true,
@@ -67,6 +72,7 @@ const reels = [
     isFollowed: false,
   },
   {
+    ismuted: true,
     username: "streetfood.sonu",
     likeCount: 9500,
     isLiked: false,
@@ -80,6 +86,7 @@ const reels = [
     isFollowed: false,
   },
   {
+    ismuted: true,
     username: "minimal.me",
     likeCount: 4200,
     isLiked: true,
@@ -93,6 +100,7 @@ const reels = [
     isFollowed: true,
   },
   {
+    ismuted: true,
     username: "gamingwithtara",
     likeCount: 28900,
     isLiked: true,
@@ -106,6 +114,7 @@ const reels = [
     isFollowed: false,
   },
   {
+    ismuted: true,
     username: "artbykavi",
     likeCount: 7200,
     isLiked: false,
@@ -119,6 +128,7 @@ const reels = [
     isFollowed: true,
   },
   {
+    ismuted: true,
     username: "techno_rider",
     likeCount: 15200,
     isLiked: true,
@@ -132,95 +142,165 @@ const reels = [
     isFollowed: false,
   },
 ];
-let allreels = document.querySelector(".all-reels");
+
+const allreels = document.querySelector(".all-reels");
 
 function adddata() {
   let sum = "";
   reels.forEach(function (elem, idx) {
-    sum =
-      sum +
-      `<div class="reel">
-            <video autoplay muted loop src="${elem.video}"></video>
-            <div class="bottom">
-              <div class="user">
-                <img
-                  src="${elem.userProfile}"
-                  alt=""
-                />
-                <h4>${elem.username}</h4>
-                <button id="${idx}" class = "Follow"  >${
-        elem.isFollowed ? "Follow" : "UnFollow"
-      }</button>
-              </div>
-              <h3>${elem.caption}</h3>
-            </div>
-            <div class="right">
-              <div id = "${idx}" class="like">
-                <h4 class="like-icon icon">${
-                  elem.isLiked
-                    ? ' <i class ="love ri-heart-3-fill"></i> '
-                    : '<i class="ri-heart-3-line"></i>'
-                }</h4>
-                <h6>${elem.likeCount}</h6> </div>
-              <div id = "${idx}" class="Comment">
-                <h4 class="comment-icon icon">
-                  <i class="ri-chat-3-line"></i>
-                </h4>
-                <h6>${elem.commentCount}</h6>
-              </div>
-              <div id = "${idx}" class="Share">
-              <h4 class="share-icon icon">${
+    sum += `
+      <div class="reel">
+        <video 
+          autoplay 
+          loop 
+          playsinline
+          ${elem.ismuted ? "muted" : ""}
+          data-id="${idx}"
+          src="${elem.video}">
+        </video>
+
+        <div class="mute" id="${idx}">
+          ${
+            elem.ismuted
+              ? '<i class="ri-volume-mute-fill"></i>'
+              : '<i class="ri-volume-up-fill"></i>'
+          }
+        </div>
+
+        <div class="bottom">
+          <div class="user">
+            <img src="${elem.userProfile}" alt="" />
+            <h4>${elem.username}</h4>
+            <button id="${idx}" class="Follow">
+              ${elem.isFollowed ? "UnFollow" : "Follow"}
+            </button>
+          </div>
+          <h3>${elem.caption}</h3>
+        </div>
+
+        <div class="right">
+          <div id="${idx}" class="like">
+            <h4 class="like-icon icon">
+            ${
+              elem.isLiked
+                ? '<i class="love ri-heart-3-fill"></i>'
+                : '<i class="ri-heart-3-line"></i>'
+            }
+            </h4>
+            <h6>${elem.likeCount}</h6>
+          </div>
+
+          <div id="${idx}" class="Comment">
+            <h4 class="comment-icon icon">
+              <i class="ri-chat-3-line"></i>
+            </h4>
+            <h6>${elem.commentCount}</h6>
+          </div>
+
+          <div id="${idx}" class="Share">
+            <h4 class="share-icon icon">
+              ${
                 elem.isShared
                   ? '<i class="ri-share-forward-fill"></i>'
                   : '<i class="ri-share-forward-line"></i>'
               }
-</h4>
+            </h4>
+            <h6>${elem.shareCount}</h6>
+          </div>
 
-
-                <h6>${elem.shareCount}</h6>
-              </div>
-              <div class="menu">
-                <h4 class="menu-icon icon"><i class="ri-more-2-fill"></i></h4>
-              </div>
-            </div>
-          </div>`;
+          <div class="menu">
+            <h4 class="menu-icon icon">
+              <i class="ri-more-2-fill"></i>
+            </h4>
+          </div>
+        </div>
+      </div>
+    `;
   });
 
   allreels.innerHTML = sum;
 }
 
 adddata();
+
+/* =====================
+   AUTO MUTE / UNMUTE ON SCROLL
+   ===================== */
+
+function checkActiveReel() {
+  const videos = document.querySelectorAll(".reel video");
+  const midScreen = window.innerHeight / 2;
+
+  videos.forEach((vid) => {
+    const rect = vid.getBoundingClientRect();
+    const id = vid.dataset.id; // string index
+
+    if (rect.top < midScreen && rect.bottom > midScreen) {
+      // ACTIVE REEL
+      vid.play();
+      vid.muted = reels[id].ismuted === true; // respect user's mute choice
+    } else {
+      // NON-ACTIVE REELS
+      vid.pause();
+      vid.muted = true;
+    }
+  });
+}
+
+const container = document.querySelector(".all-reels");
+
+container.addEventListener("scroll", checkActiveReel);
+window.addEventListener("load", checkActiveReel);
+
+/* =====================
+   CLICK HANDLERS (LIKE / FOLLOW / COMMENT / SHARE / MUTE)
+   ===================== */
+
 allreels.addEventListener("click", function (dets) {
-  if (dets.target.className == "like") {
-    if (!reels[dets.target.id].isLiked) {
-      reels[dets.target.id].likeCount++;
-      reels[dets.target.id].isLiked = true;
+  const target = dets.target;
+  const likeDiv = target.closest(".like");
+  const followBtn = target.closest(".Follow");
+  const commentDiv = target.closest(".Comment");
+  const shareDiv = target.closest(".Share");
+  const muteDiv = target.closest(".mute");
+
+  if (likeDiv) {
+    const id = likeDiv.id;
+    if (!reels[id].isLiked) {
+      reels[id].likeCount++;
+      reels[id].isLiked = true;
     } else {
-      reels[dets.target.id].likeCount--;
-      reels[dets.target.id].isLiked = false;
+      reels[id].likeCount--;
+      reels[id].isLiked = false;
     }
-  } else if (dets.target.className == "Follow") {
-    if (!reels[dets.target.id].isFollowed) {
-      reels[dets.target.id].isFollowed = true;
+  } else if (followBtn) {
+    const id = followBtn.id;
+    reels[id].isFollowed = !reels[id].isFollowed;
+  } else if (commentDiv) {
+    const id = commentDiv.id;
+    if (!reels[id].isComment) {
+      reels[id].commentCount++;
+      reels[id].isComment = true;
     } else {
-      reels[dets.target.id].isFollowed = false;
+      reels[id].commentCount--;
+      reels[id].isComment = false;
     }
-  } else if (dets.target.className == "Comment") {
-    if (!reels[dets.target.id].isComment) {
-      reels[dets.target.id].commentCount++;
-      reels[dets.target.id].isComment = true;
+  } else if (shareDiv) {
+    const id = shareDiv.id;
+    if (!reels[id].isShared) {
+      reels[id].shareCount++;
+      reels[id].isShared = true;
     } else {
-      reels[dets.target.id].commentCount--;
-      reels[dets.target.id].isComment = false;
+      reels[id].shareCount--;
+      reels[id].isShared = false;
     }
-  } else if (dets.target.className == "Share") {
-    if (!reels[dets.target.id].isShared) {
-      reels[dets.target.id].shareCount++;
-      reels[dets.target.id].isShared = true;
-    } else {
-      reels[dets.target.id].shareCount--;
-      reels[dets.target.id].isShared = false;
-    }
+  } else if (muteDiv) {
+    const id = muteDiv.id;
+    reels[id].ismuted = !reels[id].ismuted;
   }
+
+  // re-render UI + re-apply active reel logic
+
   adddata();
+  checkActiveReel();
 });

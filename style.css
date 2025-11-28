@@ -17,6 +17,28 @@ main {
   max-width: 100vw;
   background: linear-gradient(to right bottom, rgb(26, 26, 26), rgb(35, 35, 35), black);
 }
+main .mute {
+  background-color: #333;
+  border-radius: 50%;
+  height: 50px;
+  position: absolute;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  top: 3%;
+  right: 5%;
+  transition: all 0.5s ease;
+}
+main .mute i {
+  font-size: 25px;
+  color: white;
+  pointer-events: none;
+}
+main .mute:active {
+  scale: 0.9;
+}
 main section {
   color: white;
   height: 80vh;
@@ -150,6 +172,9 @@ main section .all-reels .reel .right .icon:active {
   scale: 0.9;
 }
 main section .all-reels .reel .right h6 {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   font-size: 20px;
   font-weight: 500;
   pointer-events: none;
